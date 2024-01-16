@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <div class="container-xxl">
+        <div class="row justify-content-center">
+            <div class="col-10 pt-2 pb-3">
+                <h1>Edit Listing</h1>
+            </div>
+            <div class="col-10 ">
+                <form action="/listings/<%= list._id%>?_method=PUT" method="post">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Enter Title</label>
+                        <input type="text" class="form-control" name="listing[title]" value="<%= list.title %>" id="title" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Enter Description</label>
+                        <textarea class="form-control" name="listing[description]" placeholder="" id="description"
+                            rows="6">
+                            <%= list.description %>
+                        </textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Enter Image URL/Link</label>
+                        <input type="text" class="form-control" name="listing[image]" value="<%= list.image %>" id="image" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Enter Price</label>
+                        <input type="number" class="form-control" name="listing[price]" value="<%= list.price %>" id="price" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Enter Location</label>
+                        <input type="text" class="form-control" name="listing[location]" value="<%= list.location %>" id="location" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Enter Country</label>
+                        <input type="text" class="form-control" name="listing[country]" value="<%= list.country %>" id="country" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-danger">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust</title>
+</head>
+<body>
+    <h1>Edit Old Propertie</h1>
+    <form action="/listings/<%= list._id%>?_method=PUT" method="post">
+        <input type="text" name="listing[title]" id=""  placeholder="Enter Title">
+        <br><br>
+        <textarea name="listing[description]" placeholder="Enter Description" id="" cols="30" rows="10"></textarea>
+        <br><br>
+        <input type="text" name="listing[image]" id=""  placeholder="Enter Image URL/Link">
+        <br><br>
+        <input type="number" name="listing[price]" id=""  placeholder="Enter Price">
+        <br><br>
+        <input type="text" name="listing[location]" id=""  placeholder="Enter Location">
+        <br><br>
+        <input type="text" name="listing[country]" id=""  placeholder="Enter Country">
+        <br><br>
+        <button>Edit</button>
+    </form>
+</body>
+</html> -->
