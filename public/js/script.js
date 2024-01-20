@@ -17,3 +17,12 @@
       }, false)
     })
   })()
+
+
+  $('#flexSwitchCheckReverse').change(function() {
+    if ($(this).is(':checked')) {
+      $('.tax').removeClass('d-none');
+    } else {
+      $('.tax').addClass('d-none');
+    }
+  });

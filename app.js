@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(process.env.CLOUD_API_KEY)
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -9,6 +11,7 @@ const listingRouter = require("./routes/listing");
 const reviewRouter = require("./routes/review");
 const userRouter = require("./routes/user");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 
 //Passport pack
@@ -16,14 +19,15 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 
-
+let dburl = process.env.ATLASDB_URL
 main().then(() => {
     console.log("Database Connection Successful!");
 }).catch((err) => {
     console.log(err);
 })
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    // await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect(dburl);
 }
 
 
@@ -36,8 +40,22 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// store 
+const store = MongoStore.create({
+    mongoUrl:dburl,
+
+    crypto:{
+        secret:"mysecreatstring",
+    },
+    touchAfter:24*3600,
+})
+// store error
+store.on("error", ()=>{
+    console.log(`Error in mongosh session`, err);
+})
 // session 
 const sessionOption = { 
+    store,
     secret: "mysecreatstring", 
     resave: false, 
     saveUninitialized: true,
@@ -86,12 +104,12 @@ app.use("/listings/:id/reviews", reviewRouter);
 // To use imported routes of user
 app.use("/user", userRouter);
 
-
+/* 
 // Root Route
 app.get("/", (req, res) => {
-    res.re("Working Perfect!");
+    res.send("Working Perfect!");
 })
-
+ */
 
 /*
 app.get("/listingSchema", (req, res) => {

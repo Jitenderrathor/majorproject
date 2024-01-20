@@ -1,25 +1,40 @@
 <nav class="navbar navbar-expand-md bg-light sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><i class="far fa-compass"></i></a>
+        <a class="navbar-brand" href="/listings"><i class="far fa-compass"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link" href="/listings">All Listing</a>
-                <a class="nav-link" href="/listings/new">Add New</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings/">Explore</a>
+                </li>
+            </div>
+            <div class="navbar-nav mx-auto">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-danger" type="submit"><i class="fas fa-search"></i></button>
+                  </form>
             </div>
             <div class="navbar-nav ms-auto">
-                <%if(!currUser){%>
-                <a class="nav-link" href="/user/signup">Sign Up</a>
-                <a class="nav-link" href="/user/login">Log In</a>
-                <%}%>
-                <%if(currUser){%>
-                <a class="nav-link" href="/user/logout">Log Out</a>
-                <%}%>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings/new">Airbnb your home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        User 
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-lg-end">
+                        <%if(!currUser){%>
+                            <li><a class="dropdown-item" href="/user/signup">Sign Up</a></li>
+                            <li><a class="dropdown-item" href="/user/login">Log In <i class="fas fa-sign-in"></i></a></li>
+                            <%}%>
+                                <%if(currUser){%>
+                                    <li><a class="dropdown-item" href="/user/logout">Log Out <i class="fas fa-sign-out text-danger ms-2"></i></a></li>
+                                    <%}%>
+                    </ul>
+                  </li>
             </div>
         </div>
     </div>

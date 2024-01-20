@@ -1,5 +1,9 @@
 const Listing = require("../models/listing");
 const Review = require("../models/review");
+const {listingSchema, reviewSchema} = require("../utile/schema");
+const ExpressError = require("./ExpressError");
+
+
 
 module.exports.isLoggedIn = (req, res, next) => {
     // console.log(req.path,"...",req.originalUrl);
@@ -34,4 +38,27 @@ module.exports.isAuthor = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     }
     next();
+}
+
+// middleware for velidating req.body
+module.exports.validateListing = (req,res,next)=>{
+    let {error} = listingSchema.validate(req.body);
+    if(error){
+        console.log(error);
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
+}
+
+// middleware for velidating req.body
+module.exports.validateReview = (req,res,next)=>{
+    let {error} = reviewSchema.validate(req.body);
+    if(error){
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400,errMsg);
+    }else{
+        next();
+    }
 }
